@@ -1,0 +1,657 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="zh-CN"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;教室课表查询系统&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>:root {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--bg: #f5f6fa;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--card-bg: #ffffff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--primary: #4a6cf7;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--primary-light: #eef1ff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--text: #2d3436;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--text-secondary: #636e72;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--border: #e0e3eb;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--hover: #f0f2f8;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--active: #4a6cf7;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--shadow: 0 2px 12px rgba(0, 0, 0, 0.06);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--radius: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>* {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: var(--bg);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: flex-start;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.app-container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 1300px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* ========== 顶部标题栏 ========== */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.header {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-wrap: wrap;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.header h1 {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>white-space: nowrap;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.header h1 .icon {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-right: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* ========== 搜索框 ========== */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.search-wrapper {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 440px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-width: 240px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.search-input {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 12px 16px 12px 44px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: var(--card-bg);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.25s;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>outline: none;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.search-input:focus {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-color: var(--primary);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 0 0 4px rgba(74, 108, 247, 0.1);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.search-icon {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>left: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>top: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-50%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #a0a8b8;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>pointer-events: none;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.search-clear {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>right: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>top: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-50%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #a0a8b8;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 4px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: none;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.search-clear.visible {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* ========== 主内容区 ========== */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.main-content {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-height: 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>@media (max-width: 768px) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>.main-content {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* ========== 左侧教室列表 ========== */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.sidebar {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 260px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-shrink: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: var(--card-bg);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: var(--radius);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: var(--shadow);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 16px 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-height: 70vh;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>@media (max-width: 768px) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>.sidebar {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>max-height: 260px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.sidebar-title {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--text-secondary);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-transform: uppercase;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: 0.5px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 0 20px 12px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.room-list {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>list-style: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow-y: auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 0 8px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.room-item {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 11px 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 2px 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14.5px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 500;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.2s;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--text);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>user-select: none;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.room-item:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: var(--hover);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.room-item.active {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: var(--primary-light);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--primary);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.room-item .badge {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #e8ebf5;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--text-secondary);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 11px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 500;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 3px 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>white-space: nowrap;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.room-item.active .badge {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #d0d8ff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--primary);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.no-room-result {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #b0b8c1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 32px 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* ========== 右侧课表区域 ========== */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.schedule-panel {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: var(--card-bg);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: var(--radius);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: var(--shadow);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow-x: auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-width: 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.schedule-header {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-wrap: wrap;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.room-title {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.room-title .room-name {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--primary);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.week-badge {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--text-secondary);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #f0f2f8;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 5px 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>white-space: nowrap;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.schedule-table {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-collapse: collapse;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-width: 700px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.schedule-table th,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.schedule-table td {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #e9ecf3;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 12px 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>vertical-align: middle;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 48px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.schedule-table thead th {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #f8f9fd;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--text-secondary);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>white-space: nowrap;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: sticky;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>top: 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.schedule-table .time-col {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #f8f9fd;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 500;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--text-secondary);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 12.5px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>white-space: nowrap;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 90px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.schedule-table .course-cell {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 500;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: background 0.2s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.schedule-table .course-cell.has-course {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #f0f4ff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #2d3b8c;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: default;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.schedule-table .course-cell.has-course:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #e2e8ff;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.schedule-table .course-cell.empty {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #c8cdd8;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.course-name {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 13.5px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.course-info {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 11.5px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #6b7394;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 2px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.highlight-match {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #ffeaa7 !important;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 3px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 0 2px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.empty-state {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 48px 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #b0b8c1;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.empty-state .empty-icon {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 48px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="app-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- 头部 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1&gt;&lt;span class="icon"&gt;📚&lt;/span&gt;教室课表查询&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="search-wrapper"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="search-icon"&gt;🔍&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">                </span>type="text"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>class="search-input"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>id="searchInput"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>placeholder="搜索教室、课程或教师..."</p>
+<p class="p1"><span class="Apple-converted-space">                </span>autocomplete="off"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="search-clear" id="searchClear"&gt;✕&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- 主体 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="main-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- 左侧教室列表 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="sidebar" id="sidebar"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="sidebar-title"&gt;🏫 教室列表&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="room-list" id="roomList"&gt;&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="no-room-result" id="noRoomResult" style="display:none;"&gt;未找到匹配的教室&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- 右侧课表 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="schedule-panel" id="schedulePanel"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="schedule-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="room-title"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>当前教室：&lt;span class="room-name" id="currentRoomName"&gt;-&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="week-badge" id="roomCapacity"&gt;-&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="scheduleContent"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>(function() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// ==================== 数据区：把你的课程数据替换到这里 ====================</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 每门课的格式：{ day: 周几(1-7), timeSlot: "第1-2节", courseName: "课程名", teacher: "教师", weeks: "1-16周" }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 支持一个时间段多门课（用数组）</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const scheduleData = [{</p>
+<p class="p1"><span class="Apple-converted-space">                </span>room: "教一楼 101",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>capacity: "容量: 120人",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>courses: [</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 1, timeSlot: "第1-2节", courseName: "高等数学", teacher: "张教授",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 1, timeSlot: "第3-4节", courseName: "线性代数", teacher: "李老师",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 2, timeSlot: "第1-2节", courseName: "大学物理", teacher: "王教授",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 2, timeSlot: "第5-6节", courseName: "英语读写", teacher: "陈老师",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 3, timeSlot: "第3-4节", courseName: "程序设计基础", teacher: "刘教授",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 4, timeSlot: "第1-2节", courseName: "高等数学", teacher: "张教授",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 4, timeSlot: "第5-6节", courseName: "体育", teacher: "赵老师", weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 5, timeSlot: "第1-2节", courseName: "大学物理实验", teacher: "王教授",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>],</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}, {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>room: "教一楼 102",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>capacity: "容量: 90人",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>courses: [</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 1, timeSlot: "第1-2节", courseName: "数据结构", teacher: "周教授",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 1, timeSlot: "第5-6节", courseName: "操作系统", teacher: "吴老师",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 3, timeSlot: "第1-2节", courseName: "数据结构", teacher: "周教授",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 3, timeSlot: "第7-8节", courseName: "数据库原理", teacher: "郑教授",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>],</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}, {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>room: "教二楼 201",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>capacity: "容量: 60人",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>courses: [</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 1, timeSlot: "第3-4节", courseName: "宏观经济学", teacher: "孙教授",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 2, timeSlot: "第1-2节", courseName: "微观经济学", teacher: "孙教授",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 4, timeSlot: "第3-4节", courseName: "计量经济学", teacher: "钱老师",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>],</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}, {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>room: "教二楼 202",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>capacity: "容量: 60人",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>courses: [</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 1, timeSlot: "第1-2节", courseName: "管理学原理", teacher: "冯教授",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 2, timeSlot: "第5-6节", courseName: "市场营销", teacher: "褚老师",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 3, timeSlot: "第1-2节", courseName: "组织行为学", teacher: "冯教授",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 5, timeSlot: "第3-4节", courseName: "战略管理", teacher: "卫教授",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>],</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}, {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>room: "教三楼 301",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>capacity: "容量: 150人（阶梯教室）",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>courses: [</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 2, timeSlot: "第3-4节", courseName: "马克思主义原理", teacher: "陈教授",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 3, timeSlot: "第5-6节", courseName: "形势与政策", teacher: "林老师",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-8周" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ day: 5, timeSlot: "第1-2节", courseName: "中国近现代史", teacher: "黄教授",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>weeks: "1-16周" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>],</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}, ];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// ==================== 数据区结束 ====================</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 时间段定义</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const timeSlots = ["第1-2节", "第3-4节", "第5-6节", "第7-8节", "第9-10节"];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const dayNames = ["", "周一", "周二", "周三", "周四", "周五", "周六", "周日"];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const dayNamesShort = ["", "一", "二", "三", "四", "五", "六", "日"];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 状态</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let currentRoom = scheduleData.length &gt; 0 ? scheduleData[0].room : null;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let searchQuery = "";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// DOM元素</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const roomListEl = document.getElementById("roomList");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const noRoomResultEl = document.getElementById("noRoomResult");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const searchInput = document.getElementById("searchInput");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const searchClear = document.getElementById("searchClear");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const currentRoomNameEl = document.getElementById("currentRoomName");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const roomCapacityEl = document.getElementById("roomCapacity");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const scheduleContentEl = document.getElementById("scheduleContent");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 构建课程查找索引</p>
+<p class="p1"><span class="Apple-converted-space">            </span>function buildCourseMap(data) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const map = {};</p>
+<p class="p1"><span class="Apple-converted-space">                </span>data.forEach(roomData =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>roomData.courses.forEach(course =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const key = `${roomData.room}|${course.day}|${course.timeSlot}`;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>if (!map[key]) map[key] = [];</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>map[key].push(course);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return map;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const courseMap = buildCourseMap(scheduleData);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 筛选教室</p>
+<p class="p1"><span class="Apple-converted-space">            </span>function filterRooms(query) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (!query.trim()) return scheduleData;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const q = query.trim().toLowerCase();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return scheduleData.filter(roomData =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>// 匹配教室名</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (roomData.room.toLowerCase().includes(q)) return true;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>// 匹配课程名或教师名</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>return roomData.courses.some(</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>c =&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>c.courseName.toLowerCase().includes(q) ||</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>c.teacher.toLowerCase().includes(q)</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 渲染教室列表</p>
+<p class="p1"><span class="Apple-converted-space">            </span>function renderRoomList(filteredRooms) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>roomListEl.innerHTML = "";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (filteredRooms.length === 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>noRoomResultEl.style.display = "block";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>noRoomResultEl.style.display = "none";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>filteredRooms.forEach(roomData =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const li = document.createElement("li");</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>li.className = "room-item";</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (roomData.room === currentRoom) li.classList.add("active");</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>li.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>🏢 ${roomData.room}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="badge"&gt;${roomData.courses.length}门课&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>li.addEventListener("click", () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>currentRoom = roomData.room;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>renderAll();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>roomListEl.appendChild(li);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// 如果当前教室不在筛选结果中，自动选第一个</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const found = filteredRooms.find(r =&gt; r.room === currentRoom);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (!found &amp;&amp; filteredRooms.length &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>currentRoom = filteredRooms[0].room;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>renderAll();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (filteredRooms.length === 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>currentRoom = null;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>renderSchedule();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 渲染课表</p>
+<p class="p1"><span class="Apple-converted-space">            </span>function renderSchedule() {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const roomData = scheduleData.find(r =&gt; r.room === currentRoom);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (!roomData) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>currentRoomNameEl.textContent = "-";</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>roomCapacityEl.textContent = "-";</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>scheduleContentEl.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="empty-state"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;span class="empty-icon"&gt;📭&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;p&gt;请从左侧选择一个教室查看课表&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>currentRoomNameEl.textContent = roomData.room;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>roomCapacityEl.textContent = roomData.capacity || "";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// 构建课表二维数组 [timeSlot][day]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const grid = {};</p>
+<p class="p1"><span class="Apple-converted-space">                </span>timeSlots.forEach(ts =&gt; { grid[ts] = {}; for (let d = 1; d &lt;= 7; d++) grid[ts][d] =</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>[]; });</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>roomData.courses.forEach(course =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (grid[course.timeSlot] &amp;&amp; grid[course.timeSlot][course.day]) {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>grid[course.timeSlot][course.day].push(course);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// 高亮函数</p>
+<p class="p1"><span class="Apple-converted-space">                </span>function highlightText(text, query) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (!query.trim()) return text;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const escaped = query.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&amp;');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const regex = new RegExp(`(${escaped})`, 'gi');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>return text.replace(regex,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>'&lt;span class="highlight-match"&gt;$1&lt;/span&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>let html = '&lt;table class="schedule-table"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;时间&lt;/th&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>for (let d = 1; d &lt;= 5; d++) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>html += `&lt;th&gt;${dayNames[d]}&lt;br&gt;&lt;small&gt;周${dayNamesShort[d]}&lt;/small&gt;&lt;/th&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>html += '&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>timeSlots.forEach(ts =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>html += `&lt;tr&gt;&lt;td class="time-col"&gt;${ts}&lt;/td&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>for (let d = 1; d &lt;= 5; d++) {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const courses = grid[ts][d] || [];</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>if (courses.length === 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>html += '&lt;td class="course-cell empty"&gt;-&lt;/td&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>html += '&lt;td class="course-cell has-course"&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>courses.forEach(course =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>html += `</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;span class="course-name"&gt;${highlightText(course.courseName, searchQuery)}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                      </span>&lt;span class="course-info"&gt;${highlightText(course.teacher, searchQuery)} | ${course.weeks}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>html += '&lt;/td&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>html += '&lt;/tr&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>html += '&lt;/tbody&gt;&lt;/table&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scheduleContentEl.innerHTML = html;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>function renderAll() {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const filtered = filterRooms(searchQuery);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>renderRoomList(filtered);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>renderSchedule();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 事件监听</p>
+<p class="p1"><span class="Apple-converted-space">            </span>searchInput.addEventListener("input", () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>searchQuery = searchInput.value;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (searchQuery.trim()) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>searchClear.classList.add("visible");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>searchClear.classList.remove("visible");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>renderAll();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>searchClear.addEventListener("click", () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>searchInput.value = "";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>searchQuery = "";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>searchClear.classList.remove("visible");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>renderAll();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>searchInput.focus();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 初始渲染</p>
+<p class="p1"><span class="Apple-converted-space">            </span>renderAll();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>})();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
